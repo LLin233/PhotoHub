@@ -1,12 +1,16 @@
 {
   "name": "photohub",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "dependencies": {
     "express": "^4.13.3",
     "multer": "^1.0.3",
-    "serve-index": "^1.7.2"
+    "serve-index": "^1.7.2",
+    "body-parser": "^1.13.3",
+    "glob": "^5.0.14",
+    "gm":"^1.18.1",
+    "randomstring":"^1.0.8"
   },
   "devDependencies": {},
   "scripts": {
