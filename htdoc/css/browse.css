@@ -1,6 +1,21 @@
-button.top-row {
-        background: yellow;
-        width : 32%;
-        height: 40px;
+#btn_group{
+	padding: 20px;
+	text-align:center;
+}
+
+.btn{
+	margin: 10px;
+}
+
+.container{
+	position: relative;
+}
+.box_img{
+	margin: 5px;
+	float:left;
+	padding: 5px;
+	border: 1px solid #cccccc;
+	box-shadow: 0 0 5px #cccccc;
+	border-radius: 5px;
 }
 
