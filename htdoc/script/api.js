@@ -2,7 +2,7 @@ var fs = require('fs');
 
 exports.getPics = function(req, res) {
         var album = req.body.album;
-        var ret = new Object();
+        ret = new Object();
         var localPath = "./htdoc/albums/" + album;
         ret.path = "/albums/" + album + "/";
         ret.pics = new Array();
@@ -18,7 +18,6 @@ exports.getPics = function(req, res) {
                         ret.status = 100;
                         res.send(ret);
                 }
-
         });
 }
 
@@ -26,6 +25,16 @@ exports.getPics = function(req, res) {
 
 exports.newAlbum = function(req, res) {
         var albumId = require('randomstring').generate(16);
-        var album = req.body.album;
-        var ret = new Object();
+        var localPath = "./htdoc/albums/" + albumId;
+        ret = new Object();
+        if (req.body.name == "") {
+                ret.status = 200;
+                ret.msg="album name should not be empty."
+        } else {
+                ret.status = 100;
+                ret.name = req.body.name;
+                ret.path = "/albums/" + albumId + "/";
+                fs.mkdirSync(localPath);
+        }
+        res.send(ret);
 }
