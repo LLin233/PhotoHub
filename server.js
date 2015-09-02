@@ -1,12 +1,14 @@
 var express = require('express');
 var multer = require('multer');
+var bodyParser = require('body-parser');
 var directory = require('serve-index');
 var utils = require('./htdoc/script/utils.js');
-var browse = require('./htdoc/script/browse.js');
+var api = require('./htdoc/script/api.js');
 var app = express();
 
 
 app.use(express.static('htdoc'));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/albums", directory('htdoc/albums'));
 
 app.use(multer({
@@ -18,9 +20,10 @@ app.get('/', function(request, response) {
 	response.redirect('/upload.html');
 });
 
-app.get('/browse', function(request, response) {
-	browse.browse(request, response);
-});
+app.post('/api/getPics', api.getPics);
+
+app.post('/api/newAlbum', api.newAlbum);
+
 
 app.post('/upload', function(request, response) {
 	var src = request.file.path;
@@ -31,7 +34,7 @@ app.post('/upload', function(request, response) {
 		console.log("copying is done.");
 		utils.genThumb(src, thumbPath, function(err) {
 			if (err) throw err;
-			response.redirect('/browse');
+			response.redirect('/browse.html');
 		})
 	});
 });
