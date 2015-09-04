@@ -24,6 +24,8 @@ app.post('/api/getPics', api.getPics);
 
 app.post('/api/newAlbum', api.newAlbum);
 
+app.post('/api/getAlbums', api.getAlbums);
+
 
 app.post('/upload', function(request, response) {
 	var src = request.file.path;
