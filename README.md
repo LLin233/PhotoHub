@@ -1,2 +1,6 @@
 # PhotoHub
-TODO: AJAX style
+
+## mongodb configuration is needed
+
+
+TODO: style some pages
