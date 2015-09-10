@@ -1,3 +1,6 @@
+#body {
+		background-color: #CFCFCF;
+}
 #btn_group{
 	padding: 20px;
 	text-align:center;
@@ -11,11 +14,12 @@
 	position: relative;
 }
 .box_img{
+	background-color: #FFFFFF;
 	margin: 5px;
 	float:left;
 	padding: 5px;
-	border: 1px solid #cccccc;
-	box-shadow: 0 0 5px #cccccc;
+	border: 1px solid #000000;
+	box-shadow: 0 0 5px #000000;
 	border-radius: 5px;
 }
 
