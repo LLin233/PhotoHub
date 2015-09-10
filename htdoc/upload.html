@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 </head>
 <body>
 
@@ -9,8 +10,18 @@
     Select image to upload:
     <input type="file" name="image-file">
     <br>
+    <input type="hidden" name="albumId" value="Norway">
     <input type="submit" value="Upload Image" name="submit">
 </form>
 
 </body>
+<script type="text/javascript">
+	$(document).ready(function() {
+        var selectedAlbum = localStorage.albumId;  //TODO : err handling
+        $("[name='albumId']").val(selectedAlbum);
+        console.log(selectedAlbum);
+        console.log($("[name='albumId']").val());
+    });
+</script>
+
 </html>

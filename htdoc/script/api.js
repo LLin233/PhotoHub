@@ -1,13 +1,12 @@
 var fs = require('fs');
 var mongoose = require('mongoose');
+var utils = require('./utils.js');
 var albumSchema = new mongoose.Schema({
         albumName: String,
         albumId: String
 });
 var albumModel = mongoose.model("album", albumSchema);
 mongoose.connect('mongodb://localhost/photohub');
-
-
 
 exports.getPics = function(req, res) {
         var album = req.body.album;
@@ -31,7 +30,6 @@ exports.getPics = function(req, res) {
 }
 
 
-
 exports.newAlbum = function(req, res) {
         var albumId = require('randomstring').generate(16);
         var localPath = "./htdoc/albums/" + albumId;
@@ -47,12 +45,11 @@ exports.newAlbum = function(req, res) {
                 fs.mkdirSync(localPath);
                 //mapping dir
                 albumModel.create({
-                        albumId: albumId,
-                        albumName: ret.name
-                },
-                function(err, doc) {
-                }
-        );
+                                albumId: albumId,
+                                albumName: ret.name
+                        },
+                        function(err, doc) {}
+                );
 
 
         }
@@ -60,8 +57,38 @@ exports.newAlbum = function(req, res) {
 }
 
 exports.getAlbums = function(req, res) {
-        //TODO Output: array of object {albumId, albumName}
+        //Output: array of object {albumId, albumName}
         listAlbums = albumModel.find({}, function(err, albums) {
-                console.log(albums);
+                //console.log(albums);
+                res.send(albums);
+        });
+}
+
+// exports.upload = function(req, res) {
+//         var src = req.file.path;
+//         var dst = "./htdoc/albums/album1/" + req.file.filename + ".jpg";
+//         console.log(src);
+//         utils.copyFile(src, dst, function() {
+//                 var thumbPath = "./htdoc/albums/album1/thumb-" + req.file.filename + ".jpg";
+//                 console.log("copying is done.");
+//                 utils.genThumb(src, thumbPath, function(err) {
+//                         if (err) throw err;
+//                         res.redirect('/browse.html');
+//                 })
+//         });
+// }
+
+exports.upload = function(req, res) {
+        var src = req.file.path;
+        var albumId = req.body.albumId;
+        var dst = "./htdoc/albums/" + albumId+ "/" + req.file.filename + ".jpg";
+        console.log(src);
+        utils.copyFile(src, dst, function() {
+                var thumbPath = "./htdoc/albums/" + albumId+ "/thumb-" + req.file.filename + ".jpg";
+                console.log("copying is done.");
+                utils.genThumb(src, thumbPath, function(err) {
+                        if (err) throw err;
+                        res.redirect('/browse.html');
+                })
         });
 }
